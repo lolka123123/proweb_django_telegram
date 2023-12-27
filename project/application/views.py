@@ -9,10 +9,13 @@ def index(request):
         lang_to = request.POST.get('lang_to', None)
         txt = request.POST.get('txt', None)
 
-        translator = Translator(from_lang=lang, to_lang=lang_to)
-        translation = translator.translate(txt)
+        try:
+            translator = Translator(from_lang=lang, to_lang=lang_to)
+            translation = translator.translate(txt)
 
-        return render(request, 'index.html', {'result': translation})
+            return render(request, 'index.html', {'result': translation})
+        except:
+            return render(request, 'index.html')
 
     return render(request, 'index.html')
 # Create your views here.
